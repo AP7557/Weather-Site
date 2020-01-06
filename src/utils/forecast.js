@@ -6,7 +6,7 @@ const forecast = (latitude, longitude, callback) => {
 		"," +
 		longitude;
 
-	request({ url, json: true }, (error, {body}) => {
+	request({ url, json: true }, (error, { body }) => {
 		if (error) {
 			callback("Unable to connect to weather services!", undefined);
 		} else if (body.error) {
@@ -15,11 +15,16 @@ const forecast = (latitude, longitude, callback) => {
 			callback(
 				undefined,
 				body.daily.data[0].summary +
-					" It is currently " +
+					" Currently it is " +
 					body.currently.temperature +
-					" degrees out. There is a " +
+					" degrees. High of " +
+					body.daily.data[0].temperatureHigh +
+					" degrees and a Low of " +
+					body.daily.data[0].temperatureHigh +
+					" degrees. Chance of Rain " +
 					body.currently.precipProbability +
-					"% chance of rain"
+					"%. Wind speed at " +
+					body.currently.windSpeed
 			);
 		}
 	});
